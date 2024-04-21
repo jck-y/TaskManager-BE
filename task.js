@@ -1,4 +1,4 @@
-const users = [
+const task = [
   {
     id: 1,
     date: "2024-10-27",
@@ -25,4 +25,4 @@ const users = [
   },
 ];
 
-module.exports = users;
+module.exports = task;
