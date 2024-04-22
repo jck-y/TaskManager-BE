@@ -15,13 +15,16 @@ app.use(
   })
 );
 
-// const taskController = require("./task/task.controller");
-// app.use("/task", taskController);
+const taskController = require("./task/task.controller");
+app.use("/task", taskController);
 const userController = require("./user/user.controller");
 app.use("/user", userController);
 const categoryController = require("./category/category.controller");
 app.use("/category", categoryController);
-
+const reminderController = require("./reminder/reminder.controller");
+app.use("/reminder", reminderController);
+const noteController = require("./note/note.controller");
+app.use("/note", noteController);
 
 
 app.listen(port,() => 
