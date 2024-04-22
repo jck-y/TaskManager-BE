@@ -44,7 +44,7 @@ const
       console.error(err);
       res.status(500).json({
         status: "error",
-        message: "User tidak ditemukan karena error",
+        message: "User tidak ditemukan karena error bro",
     });
     }
   });
