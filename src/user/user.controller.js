@@ -37,7 +37,7 @@ const
         console.log(user);
         res.status(200).json({
             status: "success",
-            message: "User ditemukan",
+            message: "User ditemukan atau tidak ditemukan jadi insert user dulu",
             data: user,
         });
     } catch (err) {
