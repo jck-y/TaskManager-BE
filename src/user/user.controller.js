@@ -1,62 +1,62 @@
-const express = require('express');
-const prisma = require('../db/index.js');
+const express = require("express");
+const prisma = require("../db/index.js");
 
 const router = express.Router();
 
-const { createUser, updateUser, deleteUser } = require('./user.service');
+const { createUser, updateUser, deleteUser } = require("./user.service");
 
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const userId = parseInt(req.params.id);
   try {
     await deleteUser(userId);
     res.status(200).json({
-      status: 'success',
+      status: "success",
       message: `User dengan ID ${userId} telah dihapus.`,
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      status: 'error',
-      message: 'User tidak dapat dihapus',
+      status: "error",
+      message: "User tidak dapat dihapus",
     });
   }
 });
 
-router.post('', async (req, res) => {
+router.post("", async (req, res) => {
   const newUser = req.body;
   try {
     const insertUser = await createUser(newUser);
     console.log(insertUser);
     res.status(200).json({
-      status: 'success',
-      message: 'User telah dibuat',
+      status: "success",
+      message: "User telah dibuat",
       data: insertUser,
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      status: 'error',
-      message: 'User tidak dapat dibuat karena error',
+      status: "error",
+      message: "User tidak dapat dibuat karena error",
     });
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put("/:id", async (req, res) => {
   const userId = parseInt(req.params.id);
   const updatedUserData = req.body;
 
   try {
     const updatedUser = await updateUser(userId, updatedUserData);
     res.status(200).json({
-      status: 'success',
+      status: "success",
       message: `User dengan ID ${userId} telah berhasil diupdate`,
       data: updatedUser,
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({
-      status: 'error',
-      message: 'Terjadi kesalahan saat mengupdate user',
+      status: "error",
+      message: "Terjadi kesalahan saat mengupdate user",
     });
   }
 });
