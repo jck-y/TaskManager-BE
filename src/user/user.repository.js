@@ -12,17 +12,19 @@ const insertUser= async(newUser) =>{
        return Users;
 };
 
-const getUserById = async (id) => {
-    const user = await prisma.User.findUnique({
-      where: {
-        id: parseInt(id),
-      },
-    });
-    return user;
+const findUserById = async (id) => {
+  const user = await prisma.User.findUnique({
+    where: {
+      id: parseInt(id),
+    },
+  });
+
+  return user;
 };
+
 
 
 module.exports={
     insertUser,
-    getUserById,
+    findUserById,
 }
