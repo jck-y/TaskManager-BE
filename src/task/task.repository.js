@@ -1,15 +1,16 @@
 const prisma = require("../db/index.js");
 const insertTask= async(newTask) =>{
-    const Task = await prisma.TaskToDo.create({
+    const Tasks = await prisma.Task.create({
         data: {
-          date: new Date(newTask.date),
-          taskName: newTask.taskName,
-          taskCategory: newTask.taskCategory,
-          taskDescription: newTask.taskDescription,
-          checklist: newTask.checklist,
+          userId: newTask.userId,
+          title: newTask.title,
+          description: newTask.description,
+          dueDate: new Date (newTask.dueDate),
+          completed: newTask.completed,
+          categoryId: newTask.categoryId,
         },
        })
-       return Task;
+       return Tasks;
 };
 module.exports={
     insertTask,

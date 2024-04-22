@@ -3,8 +3,8 @@ const {
     insertTask,
   } = require("./task.repository");
   const createTask = async (newTask) => {
-    const Task = await insertTask(newTask);
-    return Task;
+    const Tasks = await insertTask(newTask);
+    return Tasks;
 };
 module.exports = {
     createTask,
