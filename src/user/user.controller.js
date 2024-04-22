@@ -6,7 +6,7 @@ const router = express.Router();
 const 
 {
     createUser,
-    getUserById,
+    updateUser,
 
 } = require("./user.service");
 
@@ -30,22 +30,23 @@ const
     }
   });
 
-  router.get("/:id", async (req, res) => {
-    const id = req.params.id;
+  router.put("/:id", async (req, res) => {
+    const userId = parseInt(req.params.id);
+    const updatedUserData = req.body;
+
     try {
-        const user = await getUserById(id);
-        console.log(user);
-        res.status(200).json({
-            status: "success",
-            message: "User ditemukan",
-            data: user,
-        });
+      const updatedUser = await updateUser(userId, updatedUserData);
+      res.status(200).json({
+        status: "success",
+        message: `User dengan ID ${userId} telah berhasil diupdate`,
+        data: updatedUser,
+      });
     } catch (err) {
       console.error(err);
       res.status(500).json({
         status: "error",
-        message: "User tidak ditemukan karena error",
-    });
+        message: "Terjadi kesalahan saat mengupdate user",
+      });
     }
   });
   

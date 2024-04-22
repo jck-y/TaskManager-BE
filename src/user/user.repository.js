@@ -12,17 +12,18 @@ const insertUser= async(newUser) =>{
        return Users;
 };
 
-const getUserById = async (id) => {
-    const user = await prisma.User.findUnique({
+const updateUser = async (userId, updatedUserData) => {
+    const updatedUser = await prisma.User.update({
       where: {
-        id: parseInt(id),
+        id: userId,
       },
+      data: updatedUserData,
     });
-    return user;
+    return updatedUser;
 };
 
 
 module.exports={
     insertUser,
-    getUserById,
+    updateUser,
 }
