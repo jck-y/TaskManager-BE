@@ -2,9 +2,15 @@ const express = require ('express');
 const prisma = require("../db/index.js");
 
 const router = express.Router();
-const {
+
+const 
+{
     createUser,
-  } = require("./user.service");
+    getUserById,
+
+} = require("./user.service");
+
+
   router.post("", async (req, res) => {
     const newUser = req.body;
     try {
@@ -23,4 +29,24 @@ const {
     });
     }
   });
+
+  router.get("/:id", async (req, res) => {
+    const id = req.params.id;
+    try {
+        const user = await getUserById(id);
+        console.log(user);
+        res.status(200).json({
+            status: "success",
+            message: "User ditemukan",
+            data: user,
+        });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({
+        status: "error",
+        message: "User tidak ditemukan karena error",
+    });
+    }
+  });
+  
   module.exports = router;

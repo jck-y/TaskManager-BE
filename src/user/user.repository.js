@@ -1,4 +1,6 @@
 const prisma = require("../db/index.js");
+
+
 const insertUser= async(newUser) =>{
     const Users = await prisma.User.create({
         data: {
@@ -9,6 +11,18 @@ const insertUser= async(newUser) =>{
        })
        return Users;
 };
+
+const getUserById = async (id) => {
+    const user = await prisma.User.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    });
+    return user;
+};
+
+
 module.exports={
     insertUser,
+    getUserById,
 }
