@@ -29,7 +29,7 @@ router.delete("/:id", async (req, res) => {
     await deleteUser(userId);
     res.status(200).json({
       status: "success",
-      message: `User dengan ID ${userId} telah dihapus`,
+      message: `User dengan ID ${userId} telah dihapus.`,
     });
   } catch (err) {
     console.error(err);
