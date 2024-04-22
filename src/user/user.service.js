@@ -1,25 +1,13 @@
 const prisma = require("../db");
-
-const {
-    insertUser,
-  } = require("./user.repository");
-
-
+const { insertUser, removeUser } = require("./user.repository");
 const createUser = async (newUser) => {
-    const Users = await insertUser(newUser);
-    return Users;
+  const Users = await insertUser(newUser);
+  return Users;
 };
-
-const getUserById = async (id) => {
-    const user = await prisma.User.findUnique({
-      where: {
-        id: parseInt(id),
-      },
-    });
-    return user;
+const deleteUser = async (userId) => {
+  await removeUser(userId);
 };
-
 module.exports = {
-    createUser,
-    getUserById,
-  };
+  createUser,
+  deleteUser,
+};
