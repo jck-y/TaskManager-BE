@@ -14,8 +14,15 @@ app.use(
     origin: "http://127.0.0.1:5500",
   })
 );
-const taskController = require("./task/task.controller");
-app.use("/task", taskController);
+
+// const taskController = require("./task/task.controller");
+// app.use("/task", taskController);
+const userController = require("./user/user.controller");
+app.use("/user", userController);
+const categoryController = require("./category/category.controller");
+app.use("/category", categoryController);
+
+
 
 app.listen(port,() => 
     console.log(`Server running at http://localhost:${port}`)
