@@ -3,7 +3,12 @@ const prisma = require("../db/index.js");
 
 const router = express.Router();
 
-const { createUser, updateUser, deleteUser } = require("./user.service");
+const {
+  createUser,
+  updateUser,
+  deleteUser,
+  getUserById,
+} = require("./user.service");
 
 router.delete("/:id", async (req, res) => {
   const userId = parseInt(req.params.id);
@@ -41,24 +46,24 @@ router.post("", async (req, res) => {
   }
 });
 
-  router.get("/:id", async (req, res) => {
-    const userId = parseInt(req.params.id);
-    try {
-      const user = await getUserById(userId);
-      res.status(200).json({
-        status: "success",
-        message: `User dengan ID ${userId} ditemukan`,
-        data: user,
-      });
-    } catch (err) {
-      console.error(err);
-      res.status(404).json({
-        status: "error",
-        message: `User dengan ID ${userId} tidak ditemukan`,
-      });
-    }
-  });
-        
+router.get("/:id", async (req, res) => {
+  const userId = parseInt(req.params.id);
+  try {
+    const user = await getUserById(userId);
+    res.status(200).json({
+      status: "success",
+      message: `User dengan ID ${userId} ditemukan`,
+      data: user,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(404).json({
+      status: "error",
+      message: `User dengan ID ${userId} tidak ditemukan`,
+    });
+  }
+});
+
 router.put("/:id", async (req, res) => {
   const userId = parseInt(req.params.id);
   const updatedUserData = req.body;
