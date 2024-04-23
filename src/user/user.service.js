@@ -3,8 +3,8 @@ const prisma = require("../db");
 const { insertUser, findUser } = require("./user.repository");
 
 const getAllUser = async () => {
-  const user = await findUser();
-  return user;
+  const users = await findUser();
+  return users;
 };
 
 const createUser = async (newUser) => {

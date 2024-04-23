@@ -1,8 +1,8 @@
 const prisma = require("../db/index.js");
 
 const findUser = async () => {
-  const users = await prisma.user.findMany();
-  return users;
+  const user = await prisma.user.findMany();
+  return user;
 };
 
 const insertUser = async (newUser) => {

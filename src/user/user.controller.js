@@ -9,7 +9,7 @@ const { createUser, getUserById, getAllUser } = require("./user.service");
 router.get("/", async (req, res) => {
   try {
     const result = await getAllUser();
-    console.log("result");
+    console.log(result);
     res.status(200).json({
       status: "success",
       message: "Get all users",
