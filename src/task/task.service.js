@@ -1,4 +1,5 @@
 const prisma = require("../db");
+
 const { insertTask, removeTask, findTask } = require("./task.repository");
 const createTask = async (newTask) => {
   const Tasks = await insertTask(newTask);
@@ -18,3 +19,4 @@ module.exports = {
   deleteTask,
   getAllTasks,
 };
+

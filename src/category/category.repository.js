@@ -1,5 +1,4 @@
 const prisma = require("../db/index.js");
-
 const findCategory = async () => {
   const categories = await prisma.category.findMany();
   return categories;
@@ -18,3 +17,4 @@ module.exports = {
   insertCategory,
   findCategory,
 };
+

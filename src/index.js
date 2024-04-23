@@ -24,6 +24,7 @@ app.use("/category", categoryController);
 const taskController = require("./task/task.controller");
 app.use("/task", taskController);
 
-app.listen(port, () =>
+
+app.listen(port,() => 
   console.log(`Server running at http://localhost:${port}`)
 );

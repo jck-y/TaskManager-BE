@@ -3,9 +3,15 @@ const prisma = require("../db/index.js");
 
 const router = express.Router();
 
-const { createUser, getUserById, getAllUser } = require("./user.service");
+const {
+  createUser,
+  updateUser,
+  deleteUser,
+  getAllUser,
+  getUserById,
+    
+} = require("./user.service");
 
-//get all users
 router.get("/", async (req, res) => {
   try {
     const result = await getAllUser();
@@ -18,6 +24,21 @@ router.get("/", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
+    
+router.delete("/:id", async (req, res) => {
+  const userId = parseInt(req.params.id);
+  try {
+    await deleteUser(userId);
+    res.status(200).json({
+      status: "success",
+      message: `User dengan ID ${userId} telah dihapus.`,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "User tidak dapat dihapus",
+    });
   }
 });
 
@@ -41,20 +62,39 @@ router.post("", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const id = req.params.id;
+  const userId = parseInt(req.params.id);
   try {
-    const user = await getUserById(id);
-    console.log(user);
+    const user = await getUserById(userId);
     res.status(200).json({
       status: "success",
-      message: "User ditemukan",
+      message: `User dengan ID ${userId} ditemukan`,
       data: user,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(404).json({
+      status: "error",
+      message: `User dengan ID ${userId} tidak ditemukan`,
+    });
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  const userId = parseInt(req.params.id);
+  const updatedUserData = req.body;
+
+  try {
+    const updatedUser = await updateUser(userId, updatedUserData);
+    res.status(200).json({
+      status: "success",
+      message: `User dengan ID ${userId} telah berhasil diupdate`,
+      data: updatedUser,
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({
       status: "error",
-      message: "User tidak ditemukan karena error",
+      message: "Terjadi kesalahan saat mengupdate user",
     });
   }
 });
