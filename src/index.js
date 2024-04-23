@@ -21,9 +21,10 @@ const userController = require("./user/user.controller");
 app.use("/user", userController);
 const categoryController = require("./category/category.controller");
 app.use("/category", categoryController);
-
+const taskController = require("./task/task.controller");
+app.use("/task", taskController);
 
 
 app.listen(port,() => 
-    console.log(`Server running at http://localhost:${port}`)
+  console.log(`Server running at http://localhost:${port}`)
 );
