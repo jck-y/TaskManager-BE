@@ -1,14 +1,9 @@
 const prisma = require("../db");
-
-const {
-    insertUser,
-    findUserById,
-  } = require("./user.repository");
-
+const { insertUser, removeUser,findUserById } = require("./user.repository");
 
 const createUser = async (newUser) => {
-    const Users = await insertUser(newUser);
-    return Users;
+  const Users = await insertUser(newUser);
+  return Users;
 };
 
 const getUserById = async (id) => {
@@ -17,11 +12,13 @@ const getUserById = async (id) => {
     if (!user) {
       throw new Error("User not found");
     }
-
     return user;
 };
-
+const deleteUser = async (userId) => {
+  await removeUser(userId);
+};
 module.exports = {
-    createUser,
-    getUserById,
-  };
+  createUser,
+  deleteUser,
+  getUserById,
+};
