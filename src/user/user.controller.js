@@ -9,7 +9,6 @@ const {
   deleteUser,
   getAllUser,
   getUserById,
-    
 } = require("./user.service");
 
 router.get("/", async (req, res) => {
@@ -24,7 +23,9 @@ router.get("/", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
-    
+  }
+});
+
 router.delete("/:id", async (req, res) => {
   const userId = parseInt(req.params.id);
   try {
