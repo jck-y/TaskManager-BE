@@ -10,6 +10,16 @@ const insertUser = async (newUser) => {
   return Users;
 };
 
+const findUserById = async (id) => {
+  const user = await prisma.User.findUnique({
+    where: {
+      id: parseInt(id),
+    },
+  });
+
+  return user;
+};
+
 const removeUser = async (userId) => {
   await prisma.User.delete({
     where: {
@@ -20,4 +30,5 @@ const removeUser = async (userId) => {
 module.exports = {
   insertUser,
   removeUser,
+  findUserById,
 };

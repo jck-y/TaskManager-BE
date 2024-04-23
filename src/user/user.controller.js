@@ -41,21 +41,23 @@ router.post("", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
-    const id = req.params.id;
+  router.get("/:id", async (req, res) => {
+    const userId = parseInt(req.params.id);
     try {
-        const user = await getUserById(id);
-        console.log(user);
-        res.status(200).json({
-            status: "success",
-            message: "User ditemukan atau tidak ditemukan jadi insert user dulu",
-            data: user,
-        });
+      const user = await getUserById(userId);
+      res.status(200).json({
+        status: "success",
+        message: `User dengan ID ${userId} ditemukan`,
+        data: user,
+      });
     } catch (err) {
       console.error(err);
-      res.status(500).json({
+      res.status(404).json({
         status: "error",
-        message: "User tidak ditemukan karena error",
+        message: `User dengan ID ${userId} tidak ditemukan`,
+      });
+    }
+  });
         
 router.put("/:id", async (req, res) => {
   const userId = parseInt(req.params.id);
