@@ -5,6 +5,27 @@ const findTask = async () => {
   return tasks;
 };
 
+const findTaskTitle = async (title) => {
+  const tasks = await prisma.Task.findFirst({
+    where: {
+      title: {
+        contains: title,
+        mode: "insensitive",
+      },
+    },
+  });
+  return tasks;
+};
+
+const findTaskCategory = async (categoryId) => {
+  const tasks = await prisma.Task.findMany({
+    where: {
+      categoryId: parseInt(categoryId),
+    },
+  });
+  return tasks;
+};
+
 const insertTask = async (newTask) => {
   const Tasks = await prisma.Task.create({
     data: {
@@ -30,5 +51,6 @@ module.exports = {
   insertTask,
   removeTask,
   findTask,
+  findTaskTitle,
+  findTaskCategory,
 };
-
