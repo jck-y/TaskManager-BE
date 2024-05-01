@@ -43,7 +43,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.post("", async (req, res) => {
+router.post("/", async (req, res) => {
   const newUser = req.body;
   try {
     const insertUser = await createUser(newUser);

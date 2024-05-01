@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("", async (req, res) => {
+router.post("/", async (req, res) => {
   const newCategory = req.body;
   try {
     const insertCategory = await createCategory(newCategory);
