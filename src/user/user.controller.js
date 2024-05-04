@@ -17,7 +17,7 @@ const
         const insertUser= await createUser(newUser);
         console.log(insertUser);
         res.status(200).json({
-            status: "success",
+            status: "successs",
             message: "User telah dibuat",
             data: insertUser,
         });
