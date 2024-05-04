@@ -1,13 +1,20 @@
 const prisma = require("../db/index.js");
-const insertCategory= async(newCategory) =>{
-    const Categorys = await prisma.Category.create({
-        data: {
-          name: newCategory.name,
-          description: newCategory.description,
-        },
-       })
-       return Categorys;
+const findCategory = async () => {
+  const categories = await prisma.category.findMany();
+  return categories;
 };
-module.exports={
-    insertCategory,
-}
+
+const insertCategory = async (newCategory) => {
+  const Categorys = await prisma.Category.create({
+    data: {
+      name: newCategory.name,
+      description: newCategory.description,
+    },
+  });
+  return Categorys;
+};
+module.exports = {
+  insertCategory,
+  findCategory,
+};
+

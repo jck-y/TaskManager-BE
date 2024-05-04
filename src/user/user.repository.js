@@ -1,4 +1,10 @@
 const prisma = require("../db/index.js");
+
+const findUser = async () => {
+  const user = await prisma.User.findMany();
+  return user;
+};
+
 const insertUser = async (newUser) => {
   const Users = await prisma.User.create({
     data: {
@@ -16,7 +22,6 @@ const findUserById = async (id) => {
       id: parseInt(id),
     },
   });
-
   return user;
 };
 
@@ -31,4 +36,5 @@ module.exports = {
   insertUser,
   removeUser,
   findUserById,
+  findUser,
 };
