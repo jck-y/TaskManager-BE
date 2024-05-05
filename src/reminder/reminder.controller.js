@@ -1,8 +1,51 @@
 const express = require("express");
 const prisma = require("../db/index.js");
 
+
+
+
 const router = express.Router();
-const { createReminder, deleteReminder } = require("./reminder.service.js");
+const { createReminder, deleteReminder, findReminderById, findAllReminders
+
+ } = require("./reminder.service.js");
+
+router.get("", async (req, res) => {
+  try {
+    const result = await findAllReminders();
+    console.log(result);
+    res.status(200).json({
+      status: "success",
+      message: "Get all reminders",
+      data: result,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "Gagal mendapatkan reminder",
+    });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  const reminderId = parseInt(req.params.id);
+  try {
+    const reminder = await findReminderById
+    (reminderId);
+    res.status(200).json({
+      status: "success",
+      message: `Reminder dengan ID ${reminderId}`,
+      data: reminder,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "Reminder tidak dapat ditemukan",
+    });
+  }
+});
+
 router.post("", async (req, res) => {
   const newReminder = req.body;
   try {
