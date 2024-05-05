@@ -2,7 +2,7 @@ const express = require("express");
 const prisma = require("../db/index.js");
 
 const router = express.Router();
-const { createNote, deleteNote, findNoteById, findAllNotes } = require("./note.service.js");
+const { createNote, deleteNote, findNoteById, findAllNotes, updateNote, } = require("./note.service.js");
 
 router.get("", async (req, res) => {
   try {
@@ -55,6 +55,26 @@ router.post("", async (req, res) => {
     res.status(500).json({
       status: "error",
       message: "Note tidak dapat dibuat karena error",
+    });
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  const noteId = parseInt(req.params.id);
+  const updatedNoteData = req.body;
+
+  try {
+    const updatedNote = await updateNote(noteId, updatedNoteData);
+    res.status(200).json({
+      status: "success",
+      message: `Note dengan ID ${noteId} telah berhasil diupdate`,
+      data: updatedNote,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "Terjadi kesalahan saat mengupdate note",
     });
   }
 });

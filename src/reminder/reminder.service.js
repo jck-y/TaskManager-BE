@@ -7,6 +7,7 @@ const {
   getReminderById,
   getAllReminders,
   deleteReminder: deleteReminderService,
+  updateReminder: updateReminderService,
 } = require("./reminder.repository");
 
 const findAllReminders = async () => {
@@ -26,9 +27,15 @@ const createReminder = async (newReminder) => {
 const deleteReminder = async (reminderId) => {
   await deleteReminderService(reminderId);
 };
+const updateReminder = async (reminderId, updatedReminderData) => {
+  const updatedReminder = await updateReminderService(reminderId, updatedReminderData);
+  return updatedReminder;
+};
+
 module.exports = {
   createReminder,
   deleteReminder,
   findReminderById,
   findAllReminders,
+  updateReminder,
 };

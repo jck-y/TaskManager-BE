@@ -25,6 +25,16 @@ const findUserById = async (id) => {
   return user;
 };
 
+const updateUser = async (userId, updatedUserData) => {
+  const updatedUser = await prisma.User.update({
+    where: {
+      id: userId,
+    },
+    data: updatedUserData,
+  });
+  return updatedUser;
+};
+
 const removeUser = async (userId) => {
   await prisma.User.delete({
     where: {
@@ -37,4 +47,5 @@ module.exports = {
   removeUser,
   findUserById,
   findUser,
+  updateUser,
 };

@@ -4,6 +4,7 @@ const {
   removeUser,
   findUserById,
   findUser,
+  updateUser : updateUserService,
 } = require("./user.repository");
 
 const createUser = async (newUser) => {
@@ -26,6 +27,11 @@ const getUserById = async (id) => {
   return user;
 };
 
+const updateUser = async (userId, updatedUserData) => {
+  const updatedUser = await updateUserService(userId, updatedUserData);
+  return updatedUser;
+};
+
 const deleteUser = async (userId) => {
   await removeUser(userId);
 };
@@ -35,4 +41,5 @@ module.exports = {
   deleteUser,
   getUserById,
   getAllUser,
+  updateUser,
 };

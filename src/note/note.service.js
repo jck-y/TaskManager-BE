@@ -4,6 +4,7 @@ const {
   getNoteById,
   getAllNotes,
   deleteNote: deleteNoteService,
+  updateNote: updateNoteService,
 } = require("./note.repository");
 
 const findAllNotes = async () => {
@@ -19,6 +20,10 @@ const createNote = async (newNote) => {
   const Notes = await insertNote(newNote);
   return Notes;
 };
+const updateNote = async (noteId, updatedNoteData) => {
+  const updatedNote = await updateNoteService(noteId, updatedNoteData);
+  return updatedNote;
+};
 const deleteNote = async (noteId) => {
   await deleteNoteService(noteId);
 };
@@ -27,4 +32,5 @@ module.exports = {
   deleteNote,
   findNoteById,
   findAllNotes,
+  updateNote,
 };

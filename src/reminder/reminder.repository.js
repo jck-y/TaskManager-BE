@@ -32,9 +32,21 @@ const deleteReminder = async (reminderId) => {
     },
   });
 };
+
+const updateReminder = async (reminderId, updatedReminderData) => {
+  const updatedReminder = await prisma.Reminder.update({
+    where: {
+      id: reminderId,
+    },
+    data: updatedReminderData,
+  });
+  return updatedReminder;
+};
+
 module.exports = {
   insertReminder,
   deleteReminder,
   getReminderById,
   getAllReminders,
+  updateReminder,
 };
