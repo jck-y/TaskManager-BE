@@ -36,8 +36,6 @@ const findTaskCategory = async (categoryId) => {
   return tasks;
 };
 
-
-
 const insertTask = async (newTask) => {
   const Tasks = await prisma.Task.create({
     data: {
@@ -61,7 +59,6 @@ const updateTask = async (taskId, updatedTaskData) => {
   });
   return updatedTask;
 };
-
 
 const removeTask = async (taskId) => {
   await prisma.Task.delete({

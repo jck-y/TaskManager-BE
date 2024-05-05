@@ -1,7 +1,16 @@
 const prisma = require("../db");
-const { insertCategory, findCategory, findCategoryByName, updateCategory: updateCategoryService,} = require("./category.repository");
+const {
+  insertCategory,
+  findCategory,
+  findCategoryByName,
+  updateCategory: updateCategoryService,
+  deleteCategory: deleteCategoryService,
+} = require("./category.repository");
 const updateCategory = async (categoryId, updatedCategoryData) => {
-  const updatedCategory = await updateCategoryService(categoryId, updatedCategoryData);
+  const updatedCategory = await updateCategoryService(
+    categoryId,
+    updatedCategoryData
+  );
   return updatedCategory;
 };
 const getAllCategories = async () => {
@@ -19,10 +28,13 @@ const getCategoryByName = async (name) => {
   return category;
 };
 
+const deleteCategory = async (categoryId) => {
+  await deleteCategoryService(categoryId);
+};
 module.exports = {
   createCategory,
   getAllCategories,
   getCategoryByName,
   updateCategory,
+  deleteCategory,
 };
-
