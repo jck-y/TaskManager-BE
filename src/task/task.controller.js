@@ -8,6 +8,7 @@ const {
   getAllTasks,
   getTaskByTitle,
   getTaskByCategory,
+  getTaskByComplete
 } = require("./task.service");
 
 router.post("/", async (req, res) => {
@@ -72,6 +73,32 @@ router.get("/title/:title", async (req, res) => {
   }
 });
 
+//get task by complete
+router.get("/completed/:completed", async (req, res) => {
+  const taskComplete = req.params.completed === 'true';
+  try {
+    const result = await getTaskByComplete(taskComplete);
+    if (result.length > 0) {
+      res.status(200).json({
+        status: `success`,
+        message: `Get task with Complete: ${taskComplete}`,
+        data: result,
+      });
+    } else {
+      res.status(404).json({
+        status: "error",
+        message: `Task with Complete: ${taskComplete} not found`,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: `error`,
+      message: `Internal server error`,
+    });
+  }
+});
+
 //get task by category
 router.get("/category/:category", async (req, res) => {
   const taskCategory = req.params.category;
@@ -97,6 +124,8 @@ router.get("/category/:category", async (req, res) => {
     });
   }
 });
+
+
 
 router.delete("/:id", async (req, res) => {
   const taskId = parseInt(req.params.id);

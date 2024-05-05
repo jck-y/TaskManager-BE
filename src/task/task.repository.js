@@ -6,12 +6,22 @@ const findTask = async () => {
 };
 
 const findTaskTitle = async (title) => {
-  const tasks = await prisma.Task.findFirst({
+  const tasks = await prisma.Task.findMany({
     where: {
       title: {
         contains: title,
         mode: "insensitive",
       },
+    },
+  });
+
+  return tasks;
+};
+
+const findTaskComplete = async (completed) => {
+  const tasks = await prisma.Task.findMany({
+    where: {
+      completed: completed,
     },
   });
   return tasks;
@@ -25,6 +35,8 @@ const findTaskCategory = async (categoryId) => {
   });
   return tasks;
 };
+
+
 
 const insertTask = async (newTask) => {
   const Tasks = await prisma.Task.create({
@@ -53,4 +65,5 @@ module.exports = {
   findTask,
   findTaskTitle,
   findTaskCategory,
+  findTaskComplete,
 };

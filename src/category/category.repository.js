@@ -13,8 +13,20 @@ const insertCategory = async (newCategory) => {
   });
   return Categorys;
 };
+
+// find category by name
+const findCategoryByName = async (name) => {
+  const category = await prisma.category.findMany({
+    where: {
+      name: name,
+    },
+  });
+  return category;
+};
+
 module.exports = {
   insertCategory,
   findCategory,
+  findCategoryByName,
 };
 

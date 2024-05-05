@@ -6,6 +6,7 @@ const {
   findTask,
   findTaskTitle,
   findTaskCategory,
+  findTaskComplete
 } = require("./task.repository");
 const createTask = async (newTask) => {
   const Tasks = await insertTask(newTask);
@@ -27,6 +28,11 @@ const getTaskByCategory = async (categoryId) => {
   return tasks;
 };
 
+const getTaskByComplete = async (completed) => {  
+  const tasks = await findTaskComplete(completed);
+  return tasks;
+};
+
 const deleteTask = async (taskId) => {
   await removeTask(taskId);
 };
@@ -36,4 +42,5 @@ module.exports = {
   getAllTasks,
   getTaskByTitle,
   getTaskByCategory,
+  getTaskByComplete,
 };
