@@ -1,4 +1,43 @@
 const prisma = require("../db/index.js");
+
+const findTask = async () => {
+  const tasks = await prisma.Task.findMany();
+  return tasks;
+};
+
+const findTaskTitle = async (title) => {
+  const tasks = await prisma.Task.findMany({
+    where: {
+      title: {
+        contains: title,
+        mode: "insensitive",
+      },
+    },
+  });
+
+  return tasks;
+};
+
+const findTaskComplete = async (completed) => {
+  const tasks = await prisma.Task.findMany({
+    where: {
+      completed: completed,
+    },
+  });
+  return tasks;
+};
+
+const findTaskCategory = async (categoryId) => {
+  const tasks = await prisma.Task.findMany({
+    where: {
+      categoryId: parseInt(categoryId),
+    },
+  });
+  return tasks;
+};
+
+
+
 const insertTask = async (newTask) => {
   const Tasks = await prisma.Task.create({
     data: {
@@ -35,4 +74,8 @@ module.exports = {
   insertTask,
   removeTask,
   updateTask,
+  findTask,
+  findTaskTitle,
+  findTaskCategory,
+  findTaskComplete,
 };
