@@ -1,4 +1,13 @@
 const prisma = require("../db/index.js");
+const updateCategory = async (categoryId, updatedCategoryData) => {
+  const updatedCategory = await prisma.Category.update({
+    where: {
+      id: categoryId,
+    },
+    data: updatedCategoryData,
+  });
+  return updatedCategory;
+};
 const findCategory = async () => {
   const categories = await prisma.category.findMany();
   return categories;
@@ -28,5 +37,6 @@ module.exports = {
   insertCategory,
   findCategory,
   findCategoryByName,
+  updateCategory,
 };
 

@@ -52,6 +52,17 @@ const insertTask = async (newTask) => {
   return Tasks;
 };
 
+const updateTask = async (taskId, updatedTaskData) => {
+  const updatedTask = await prisma.Task.update({
+    where: {
+      id: taskId,
+    },
+    data: updatedTaskData,
+  });
+  return updatedTask;
+};
+
+
 const removeTask = async (taskId) => {
   await prisma.Task.delete({
     where: {
@@ -62,6 +73,7 @@ const removeTask = async (taskId) => {
 module.exports = {
   insertTask,
   removeTask,
+  updateTask,
   findTask,
   findTaskTitle,
   findTaskCategory,

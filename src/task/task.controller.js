@@ -8,7 +8,8 @@ const {
   getAllTasks,
   getTaskByTitle,
   getTaskByCategory,
-  getTaskByComplete
+  getTaskByComplete,
+  updateTask,
 } = require("./task.service");
 
 router.post("/", async (req, res) => {
@@ -29,7 +30,25 @@ router.post("/", async (req, res) => {
     });
   }
 });
+router.put("/:id", async (req, res) => {
+  const taskId = parseInt(req.params.id);
+  const updatedTaskData = req.body;
 
+  try {
+    const updatedTask = await updateTask(taskId, updatedTaskData);
+    res.status(200).json({
+      status: "success",
+      message: `Task dengan ID ${taskId} telah berhasil diupdate`,
+      data: updatedTask,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "Terjadi kesalahan saat mengupdate task",
+    });
+  }
+});
 //get all task
 router.get("/", async (req, res) => {
   try {
@@ -124,9 +143,6 @@ router.get("/category/:category", async (req, res) => {
     });
   }
 });
-
-
-
 router.delete("/:id", async (req, res) => {
   const taskId = parseInt(req.params.id);
   try {
