@@ -1,4 +1,5 @@
 const prisma = require("../db/index.js");
+
 const insertCategory= async(newCategory) =>{
     const Categorys = await prisma.Category.create({
         data: {
@@ -8,6 +9,18 @@ const insertCategory= async(newCategory) =>{
        })
        return Categorys;
 };
+
+const updateCategory = async (categoryId, updatedCategoryData) => {
+  const updatedCategory = await prisma.Category.update({
+    where: {
+      id: categoryId,
+    },
+    data: updatedCategoryData,
+  });
+  return updatedCategory;
+};
+
 module.exports={
     insertCategory,
+    updateCategory,
 }
