@@ -33,10 +33,18 @@ const findCategoryByName = async (name) => {
   return category;
 };
 
+const deleteCategory = async (categoryId) => {
+  await prisma.category.delete({
+    where: {
+      id: categoryId,
+    },
+  });
+};
+
 module.exports = {
   insertCategory,
   findCategory,
   findCategoryByName,
   updateCategory,
+  deleteCategory,
 };
-

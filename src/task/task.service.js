@@ -6,7 +6,7 @@ const {
   findTaskTitle,
   findTaskCategory,
   findTaskComplete,
-  updateTask: updateTaskService
+  updateTask: updateTaskService,
 } = require("./task.repository");
 const createTask = async (newTask) => {
   const Tasks = await insertTask(newTask);
@@ -15,6 +15,7 @@ const createTask = async (newTask) => {
 const updateTask = async (taskId, updatedTaskData) => {
   const updatedTask = await updateTaskService(taskId, updatedTaskData);
   return updatedTask;
+};
 const getAllTasks = async () => {
   const tasks = await findTask();
   return tasks;
@@ -30,7 +31,7 @@ const getTaskByCategory = async (categoryId) => {
   return tasks;
 };
 
-const getTaskByComplete = async (completed) => {  
+const getTaskByComplete = async (completed) => {
   const tasks = await findTaskComplete(completed);
   return tasks;
 };
