@@ -27,11 +27,6 @@ app.use("/reminder", reminderController);
 const noteController = require("./note/note.controller");
 app.use("/note", noteController);
 
-const taskController = require("./task/task.controller");
-app.use("/task", taskController);
-
-
-
-app.listen(port,() => 
+app.listen(port, () =>
   console.log(`Server running at http://localhost:${port}`)
 );

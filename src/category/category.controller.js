@@ -2,8 +2,31 @@ const express = require("express");
 const prisma = require("../db/index.js");
 
 const router = express.Router();
-const { createCategory, getAllCategories } = require("./category.service.js");
-
+const {
+  createCategory,
+  getAllCategories,
+  getCategoryByName,
+  updateCategory,
+  deleteCategory,
+} = require("./category.service.js");
+router.post("/", async (req, res) => {
+  const newCategory = req.body;
+  try {
+    const insertCategory = await createCategory(newCategory);
+    console.log(insertCategory);
+    res.status(200).json({
+      status: "success",
+      message: "Category telah dibuat",
+      data: insertCategory,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "Category tidak dapat dibuat karena error",
+    });
+  }
+});
 //get all categories
 router.get("/", async (req, res) => {
   try {
@@ -20,7 +43,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("", async (req, res) => {
+router.post("/", async (req, res) => {
   const newCategory = req.body;
   try {
     const insertCategory = await createCategory(newCategory);
@@ -35,6 +58,64 @@ router.post("", async (req, res) => {
     res.status(500).json({
       status: "error",
       message: "Category tidak dapat dibuat karena error",
+    });
+  }
+});
+
+router.get("/:name", async (req, res) => {
+  try {
+    const result = await getCategoryByName(req.params.name);
+    if (!result) {
+      return res.status(404).json({
+        status: "error",
+        message: "Category tidak ditemukan",
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      message: "Get category by name",
+      data: result,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+router.put("/:id", async (req, res) => {
+  const categoryId = parseInt(req.params.id);
+  const updatedCategoryData = req.body;
+
+  try {
+    const updatedCategory = await updateCategory(
+      categoryId,
+      updatedCategoryData
+    );
+    res.status(200).json({
+      status: "success",
+      message: `Category dengan ID ${categoryId} telah berhasil diupdate`,
+      data: updatedCategory,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "Terjadi kesalahan saat mengupdate category",
+    });
+  }
+});
+router.delete("/:id", async (req, res) => {
+  const categoryId = parseInt(req.params.id);
+  try {
+    await deleteCategory(categoryId);
+    res.status(200).json({
+      status: "success",
+      message: `Category dengan ID ${categoryId} telah dihapus`,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "Category tidak dapat dihapus",
     });
   }
 });
