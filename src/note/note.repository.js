@@ -24,6 +24,17 @@ const insertNote = async (newNote) => {
   });
   return NoteinsertNotes;
 };
+
+const updateNote = async (noteId, updatedNoteData) => {
+  const updatedNote = await prisma.Note.update({
+    where: {
+      id: noteId,
+    },
+    data: updatedNoteData,
+  });
+  return updatedNote;
+};
+
 const deleteNote = async (noteId) => {
   await prisma.note.delete({
     where: {
@@ -36,4 +47,5 @@ module.exports = {
   deleteNote,
   getNoteById,
   getAllNotes,
+  updateNote,
 };

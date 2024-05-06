@@ -5,7 +5,7 @@ const prisma = require("../db/index.js");
 
 
 const router = express.Router();
-const { createReminder, deleteReminder, findReminderById, findAllReminders
+const { createReminder, deleteReminder, findReminderById, findAllReminders, updateReminder,
 
  } = require("./reminder.service.js");
 
@@ -81,4 +81,25 @@ router.delete("/:id", async (req, res) => {
     });
   }
 });
+
+router.put("/:id", async (req, res) => {
+  const reminderId = parseInt(req.params.id);
+  const updatedReminderData = req.body;
+
+  try {
+    const updatedReminder = await updateReminder(reminderId, updatedReminderData);
+    res.status(200).json({
+      status: "success",
+      message: `Reminder dengan ID ${reminderId} telah berhasil diupdate`,
+      data: updatedReminder,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "Terjadi kesalahan saat mengupdate reminder",
+    });
+  }
+});
+
 module.exports = router;
