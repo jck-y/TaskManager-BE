@@ -26,22 +26,21 @@ router.get("/", async (req, res) => {
   }
 });
 
-
 router.post("", async (req, res) => {
-    const newUser = req.body;
-    try {
-        const insertUser= await createUser(newUser);
-        console.log(insertUser);
-        res.status(200).json({
-            status: "success",
-            message: "User telah dibuat",
-            data: insertUser,
-        });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({
-        status: "error",
-        message: "User tidak dapat dibuat karena error",
+  const newUser = req.body;
+  try {
+    const insertUser = await createUser(newUser);
+    console.log(insertUser);
+    res.status(200).json({
+      status: "success",
+      message: "User telah dibuat",
+      data: insertUser,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "User tidak dapat dibuat karena error",
     });
   }
 });
@@ -83,5 +82,20 @@ router.put("/:id", async (req, res) => {
     });
   }
 });
-
+router.delete("/:id", async (req, res) => {
+  const userId = parseInt(req.params.id);
+  try {
+    await deleteUser(userId);
+    res.status(200).json({
+      status: "success",
+      message: `User dengan ID ${userId} telah berhasil dihapus`,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      status: "error",
+      message: "Terjadi kesalahan saat menghapus user",
+    });
+  }
+});
 module.exports = router;
